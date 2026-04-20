@@ -1,28 +1,50 @@
 {
   "name": "notes-api",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "2.0.0",
+  "description": "Simple notes API built with Node.js, TypeScript, Express, Knex, and MySQL.",
+  "main": "dist/server.js",
   "scripts": {
-    "start": "node ./src/server.js",
-    "dev": "nodemon ./src/server.js",
-    "migrate": "npx knex migrate:latest",
-    "build:swagger": "node src/generate-swagger.js"
+    "dev": "tsx watch --clear-screen=false src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "test": "vitest",
+    "test:run": "vitest run --coverage",
+    "check": "npm run format:check && npm run test:run && npm run build",
+    "knex": "tsx ./node_modules/knex/bin/cli.js --knexfile knexfile.ts",
+    "migrate:latest": "npm run knex -- migrate:latest",
+    "migrate:rollback": "npm run knex -- migrate:rollback",
+    "migrate:make": "npm run knex -- migrate:make",
+    "migrate:latest:prod": "node ./node_modules/knex/bin/cli.js --knexfile dist/knexfile.js migrate:latest"
   },
+  "keywords": [
+    "express",
+    "knex",
+    "mysql",
+    "typescript"
+  ],
   "author": "devmoreir4",
-  "license": "ISC",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.7",
-    "express": "^4.19.2",
+    "express": "^4.21.2",
     "express-async-errors": "^3.1.1",
     "knex": "^3.1.0",
-    "pg": "^8.14.1",
-    "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
+    "mysql2": "^3.15.2"
   },
   "devDependencies": {
-    "nodemon": "^3.1.4",
-    "swagger-ui-dist": "^5.20.1"
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.6.0",
+    "@vitest/coverage-v8": "^3.2.4",
+    "prettier": "^3.6.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
   }
 }
