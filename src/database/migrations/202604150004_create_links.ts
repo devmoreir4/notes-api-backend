@@ -6,6 +6,7 @@ export async function up(knex: Knex): Promise<void> {
     table.text("url").notNullable();
     table
       .integer("note_id")
+      .unsigned()
       .notNullable()
       .references("id")
       .inTable("notes")

@@ -47,12 +47,14 @@ export async function updateUserService({
     nextPassword = await hash(password, 8);
   }
 
-  await database("users").where({ id: userId }).update({
-    name: name ?? user.name,
-    email: email ?? user.email,
-    password: nextPassword,
-    updated_at: database.fn.now(),
-  });
+  await database("users")
+    .where({ id: userId })
+    .update({
+      name: name ?? user.name,
+      email: email ?? user.email,
+      password: nextPassword,
+      updated_at: database.fn.now(),
+    });
 
   return database("users")
     .where({ id: userId })

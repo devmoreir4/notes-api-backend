@@ -6,6 +6,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string("name").notNullable();
     table
       .integer("note_id")
+      .unsigned()
       .notNullable()
       .references("id")
       .inTable("notes")
@@ -13,6 +14,7 @@ export async function up(knex: Knex): Promise<void> {
       .index();
     table
       .integer("user_id")
+      .unsigned()
       .notNullable()
       .references("id")
       .inTable("users")

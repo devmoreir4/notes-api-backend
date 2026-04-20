@@ -7,6 +7,7 @@ export async function up(knex: Knex): Promise<void> {
     table.text("description").notNullable().defaultTo("");
     table
       .integer("user_id")
+      .unsigned()
       .notNullable()
       .references("id")
       .inTable("users")
